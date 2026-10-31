@@ -115,6 +115,6 @@ async function loginGoogle() {
     async function del(id){if(!confirm('Hapus transaksi ini?'))return;let r=await db.from('transactions').delete().eq('id',id);if(r.error)return toast(r.error.message);toast('Transaksi dihapus.');load();}
     function walletModal(show){$('modal').classList.toggle('hidden',!show);$('modal').classList.toggle('grid',show);}
     function toggleHide(){hidden=!hidden;localStorage.budgetingHide=hidden?'1':'0';buttons();paint();}
-    function buttons(){$('hidebtn').innerHTML=hidden?'<i data-lucide="eye"></i> ':'<i data-lucide="eye-off"></i> Sembunyikan nominal';lucide.createIcons();}
+    function buttons(){$('hidebtn').innerHTML=hidden?'<i data-lucide="eye"></i> ':'<i data-lucide="eye-off"></i> ';lucide.createIcons();}
     function toast(m){$('toast').textContent=m;$('toast').classList.remove('hidden');clearTimeout(toast.t);toast.t=setTimeout(()=>$('toast').classList.add('hidden'),3500);}
     function esc(x){return String(x||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));}</script></body></html>
