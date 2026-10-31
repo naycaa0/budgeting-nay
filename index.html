@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CermatUang - Pencatat Keuangan Pemula</title>
+    <title>Budgeting Nay - Pencatat Keuangan Pemula</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Inter -->
@@ -67,8 +67,8 @@
                     <i data-lucide="wallet" class="w-6 h-6"></i>
                 </div>
                 <div>
-                    <h1 class="text-xl font-bold text-slate-900 leading-none">CermatUang</h1>
-                    <p class="text-xs text-slate-500 font-medium mt-0.5">Kelola Keuangan Pintar Pemula (Supabase Cloud)</p>
+                    <h1 class="text-xl font-bold text-slate-900 leading-none">Budgeting Nay</h1>
+                    <p class="text-xs text-slate-500 font-medium mt-0.5">Rajin Budgeting Yuk!</p>
                 </div>
             </div>
 
@@ -326,15 +326,15 @@
     <!-- Footer -->
     <footer class="mt-auto py-6 border-t border-slate-200 bg-white">
         <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500">
-            <p>© 2026 CermatUang - Tersimpan Aman di Cloud Supabase.</p>
+            <p>© 2026 Budgeting Nay - Tersimpan Aman di Cloud Supabase.</p>
         </div>
     </footer>
 
     <!-- JavaScript Integration Logic -->
     <script>
         // 1. SETUP KONEKSI SUPABASE (Ganti dengan API Keys Anda)
-        const SUPABASE_URL = 'https://YOUR_SUPABASE_PROJECT_ID.supabase.co';
-        const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+        const SUPABASE_URL = 'https://slcgvnjyeafwpuscuwzk.supabase.co/rest/v1/transactions';
+        const SUPABASE_ANON_KEY = 'sb_publishable_1GGPHnlKOKdKGnvEWv1edg_bEBElnHa';
         
         const { createClient } = supabase;
         const _supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
