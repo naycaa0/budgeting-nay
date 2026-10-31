@@ -20,6 +20,11 @@
         <input id="pass2" type="password" minlength="6" placeholder="Ulangi kata sandi" class="hidden w-full rounded-xl border p-3 text-sm">
         <button id="authbtn" class="w-full rounded-xl bg-blue-600 py-3 text-sm font-extrabold text-white">Masuk</button>
       </form>
+      
+<button type="button" onclick="loginGoogle()"
+  class="mt-3 w-full rounded-xl border border-slate-300 bg-white py-3 text-sm font-extrabold text-slate-700 hover:bg-slate-50">
+  Masuk dengan Google
+</button>
       <p id="authnote" class="mt-4 text-center text-xs text-slate-500">Data hanya bisa dibuka dari akun Anda.</p>
     </div>
   </section>
@@ -84,6 +89,18 @@
     async function session(s){user=s?.user||null;$('auth').classList.toggle('hidden',!!user);$('hidebtn').classList.toggle('hidden',!user);if(user){$('who').textContent=user.email;await load();}else{w=[];t=[];paint();}}
     function mode(m){authMode=m;$('tab-in').className=m==='in'?'rounded-lg bg-white py-2 text-sm font-bold shadow':'rounded-lg py-2 text-sm font-bold text-slate-500';$('tab-up').className=m==='up'?'rounded-lg bg-white py-2 text-sm font-bold shadow':'rounded-lg py-2 text-sm font-bold text-slate-500';$('pass2').classList.toggle('hidden',m==='in');$('pass2').required=m==='up';$('authbtn').textContent=m==='in'?'Masuk':'Buat akun';$('authnote').textContent=m==='in'?'Data hanya bisa dibuka dari akun Anda.':'Konfirmasi akun lewat email bila diminta.';}
     async function authSubmit(e){e.preventDefault();let email=$('email').value.trim(),pass=$('pass').value;if(authMode==='up'&&pass!==$('pass2').value)return toast('Kata sandi tidak sama.');let r=authMode==='up'?await db.auth.signUp({email,password:pass,options:{emailRedirectTo:location.href}}):await db.auth.signInWithPassword({email,password:pass});if(r.error){if(authMode==='up'&&/database error saving new user|duplicate key|unexpected_failure/i.test(r.error.message))return toast('Email sudah terdaftar. Jangan daftar ulang; gunakan Masuk atau reset password.');return toast(r.error.message);}toast(authMode==='up'&&!r.data.session?'Periksa email untuk konfirmasi.':'Berhasil masuk.');}
+async function loginGoogle() {
+  const { error } = await db.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      redirectTo: 'https://naycaa0.github.io/budgeting-nay/'
+    }
+  });
+
+  if (error) {
+    toast('Google Login gagal: ' + error.message);
+  }
+}
     async function logout(){await db.auth.signOut();}
     async function load(){if(!user)return;let r=await Promise.all([db.from('wallets').select('*').order('created_at'),db.from('transactions').select('*').order('tanggal',{ascending:false}).order('created_at',{ascending:false})]);if(r[0].error||r[1].error)return toast('Gagal memuat data. Pastikan migrasi telah dijalankan.');w=r[0].data;t=r[1].data;options();paint();}
     function kind(k){$('type').value=k;[['out','pengeluaran'],['inc','pemasukan'],['move','transfer']].forEach(x=>$(x[0]).className=x[1]===k?'rounded-lg bg-white py-2 text-xs font-bold shadow':'rounded-lg py-2 text-xs font-bold');$('tolabel').classList.toggle('hidden',k!=='transfer');$('to').required=k==='transfer';$('fromlabel').childNodes[0].nodeValue=k==='pemasukan'?'Masuk ke':k==='transfer'?'Pindah dari':'Keluar dari';$('catlabel').classList.toggle('hidden',k==='transfer');$('category').innerHTML=(k==='transfer'?['Transfer']:cats[k]).map(x=>'<option>'+x+'</option>').join('');}
