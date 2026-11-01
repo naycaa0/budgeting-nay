@@ -347,7 +347,7 @@ function diagramPie(entries,selected){
       :`M${p1[0].toFixed(4)} ${p1[1].toFixed(4)} A${radius} ${radius} 0 ${ratio>0.5?1:0} 1 ${p2[0].toFixed(4)} ${p2[1].toFixed(4)}`;
     return `<path d="${d}" fill="none" stroke="${COLORS[i%COLORS.length]}" stroke-width="32" class="interactive-slice ${selected&&selected!==category?'dim':''} ${selected===category?'selected':''}" data-action="diagram-category" data-category="${escAttr(category)}" role="button" tabindex="0" aria-label="Lihat kategori ${escAttr(category)}: ${escAttr(money(value))}" aria-pressed="${selected===category}"><title>${E(category)}: ${E(money(value))} (${pct(value,total)}%)</title></path>`;
   }).join('');
-  return `<div class="interactive-pie-layout"><div class="interactive-pie"><svg viewBox="0 0 200 200" role="group" aria-label="Diagram lingkaran interaktif: pilih bagian untuk rincian kategori"><circle cx="100" cy="100" r="83" fill="none" stroke="#edf2f8" stroke-width="32"/>${paths}</svg><div class="interactive-pie-center"><small>Total</small><strong>${money(total)}</strong></div></div><p class="tinyhelp"> .</p></div>`;
+  return `<div class="interactive-pie-layout"><div class="interactive-pie"><svg viewBox="0 0 200 200" role="group" aria-label="Diagram lingkaran interaktif: pilih bagian untuk rincian kategori"><circle cx="100" cy="100" r="83" fill="none" stroke="#edf2f8" stroke-width="32"/>${paths}</svg><div class="interactive-pie-center"><small>Total</small><strong>${money(total)}</strong></div></div><p class="tinyhelp"></p></div>`;
 }
 function diagramBars(entries,selected){
   const max=Math.max(...entries.map(([,v])=>v),1),total=entries.reduce((s,[,v])=>s+v,0);
