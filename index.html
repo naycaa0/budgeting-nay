@@ -203,7 +203,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
   </section>
   <div class="app">
     <aside class="sidebar" id="sidebar" aria-label="Navigasi utama">
-      <div class="identity"><div class="brand-mark">N</div><div><strong>Budgeting Nay</strong><span>Keuangan lebih tertata</span></div></div>
+      <div class="identity"><div class="brand-mark">N</div><div><strong>Budgeting Nay</strong><span>Rajin Budgeting Yuk!</span></div></div>
       <div class="sidebar-kicker">MENU UTAMA</div>
       <nav id="nav" class="nav"></nav>
       <div class="side-foot"><div class="side-foot-icon">✦</div><div><b>Pelan-pelan, jadi tabungan ✨</b><small>Atur uangmu dengan nyaman</small></div></div>
@@ -310,7 +310,7 @@ function summaryCompare(){
     return `<article class="summary-comparison ${style}"><div class="summary-label">${label}</div><div class="summary-current"><small>Bulan ini / terpilih</small><strong>${money(now)}</strong></div><div class="summary-previous"><span>Bulan sebelumnya</span><strong>${money(prior)}</strong></div><div class="summary-delta">Selisih: <b>${app.private&&app.page!=='transaksi'?'••••••':(delta>0?'+':'')+fmt(delta)}</b></div></article>`;
   }).join('')}</div><p class="tinyhelp summary-note">Total bersih = pemasukan − pengeluaran. Saldo awal dan transfer antar-rekening tidak dihitung.</p>`;
 }
-function accountTotal(){return `<div class="account-total"><div><span>TOTAL SALDO SELURUH REKENING</span><small>Akumulasi saldo semua rekening, termasuk saldo awal</small></div><strong>${money(allBalance())}</strong></div>`}
+function accountTotal(){return `<div class="account-total"><div><span>TOTAL SALDO</span><small> </small></div><strong>${money(allBalance())}</strong></div>`}
 function renderOverview(){
   let t=transactionsOfMonth();return `${notice()}${header('Halo, selamat datang! 👋','Pantau kondisi keuanganmu dalam satu tampilan.',monthSwitcher())}
   <section class="panel">${section('Ringkasan','Pemasukan, pengeluaran, dan total bulan terpilih dibanding bulan sebelumnya.',btn('Lihat rincian','go-ringkasan','light'))}${summaryCompare()}</section>
@@ -339,7 +339,7 @@ function diagramPie(entries,selected){
       :`M${p1[0].toFixed(4)} ${p1[1].toFixed(4)} A${radius} ${radius} 0 ${ratio>0.5?1:0} 1 ${p2[0].toFixed(4)} ${p2[1].toFixed(4)}`;
     return `<path d="${d}" fill="none" stroke="${COLORS[i%COLORS.length]}" stroke-width="32" class="interactive-slice ${selected&&selected!==category?'dim':''} ${selected===category?'selected':''}" data-action="diagram-category" data-category="${escAttr(category)}" role="button" tabindex="0" aria-label="Lihat kategori ${escAttr(category)}: ${escAttr(money(value))}" aria-pressed="${selected===category}"><title>${E(category)}: ${E(money(value))} (${pct(value,total)}%)</title></path>`;
   }).join('');
-  return `<div class="interactive-pie-layout"><div class="interactive-pie"><svg viewBox="0 0 200 200" role="group" aria-label="Diagram lingkaran interaktif: pilih bagian untuk rincian kategori"><circle cx="100" cy="100" r="83" fill="none" stroke="#edf2f8" stroke-width="32"/>${paths}</svg><div class="interactive-pie-center"><small>Total</small><strong>${money(total)}</strong></div></div><p class="tinyhelp">Klik irisan atau keterangannya untuk melihat grafik kategori.</p></div>`;
+  return `<div class="interactive-pie-layout"><div class="interactive-pie"><svg viewBox="0 0 200 200" role="group" aria-label="Diagram lingkaran interaktif: pilih bagian untuk rincian kategori"><circle cx="100" cy="100" r="83" fill="none" stroke="#edf2f8" stroke-width="32"/>${paths}</svg><div class="interactive-pie-center"><small>Total</small><strong>${money(total)}</strong></div></div><p class="tinyhelp"> .</p></div>`;
 }
 function diagramBars(entries,selected){
   const max=Math.max(...entries.map(([,v])=>v),1),total=entries.reduce((s,[,v])=>s+v,0);
@@ -364,7 +364,7 @@ function renderDiagrams(){
   <section class="panel">${section('Analisis berdasarkan kategori',monthTitle(app.month))}
     <div class="diagram-filters"><div class="diagram-filter-unit"><span>Jenis transaksi</span><div class="badge-tabs"><button type="button" data-action="diagram-expense" class="${kind==='pengeluaran'?'active':''}" aria-pressed="${kind==='pengeluaran'}">Pengeluaran</button><button type="button" data-action="diagram-income" class="${kind==='pemasukan'?'active':''}" aria-pressed="${kind==='pemasukan'}">Pemasukan</button></div></div>
     <div class="diagram-filter-unit"><span>Tipe diagram</span><div class="badge-tabs"><button type="button" data-action="diagram-pie" class="${app.diagramChart==='pie'?'active':''}" aria-pressed="${app.diagramChart==='pie'}">◉ Lingkaran</button><button type="button" data-action="diagram-bar" class="${app.diagramChart==='bar'?'active':''}" aria-pressed="${app.diagramChart==='bar'}">▥ Batang</button></div></div></div>
-    <div class="diagram-main"><div class="diagram-visual">${app.diagramChart==='pie'?diagramPie(entries,selected):diagramBars(entries,selected)}</div><aside class="diagram-legend-wrap"><div class="diagram-legend-heading"><b>Keterangan kategori</b><small>Pilih kategori untuk grafik rincian</small></div>${diagramLegend(entries,selected)}</aside></div>
+    <div class="diagram-main"><div class="diagram-visual">${app.diagramChart==='pie'?diagramPie(entries,selected):diagramBars(entries,selected)}</div><aside class="diagram-legend-wrap"><div class="diagram-legend-heading"><b>Keterangan kategori</b><small> </small></div>${diagramLegend(entries,selected)}</aside></div>
   </section>${selected?`<div class="footspace"></div>${diagramCategoryDetails(selected,kind)}`:''}
   <div class="footspace"></div><section class="panel">${section(`Tren keseluruhan ${kind}`,'Total semua kategori dalam 6 bulan terakhir')}${svgChart(months.map(m=>({label:m.slice(5)+'/'+m.slice(2,4),value:sumOf(transactionsOfMonth(m),kind)})))}</section>`;
 }
@@ -503,7 +503,7 @@ function calcRender(){
   let value=null,error='';try{if(calculator.expression)value=calcEvaluate(calculator.expression)}catch(e){error=e.message}
   const valid=value!==null&&Number.isSafeInteger(value)&&value>0;
   const buttons=[['C','clear'],['(','('],[')',')'],['⌫','back'],['7','7'],['8','8'],['9','9'],['÷','÷'],['4','4'],['5','5'],['6','6'],['×','×'],['1','1'],['2','2'],['3','3'],['−','-'],['0','0'],['00','00'],['.','.'],['+','+']];
-  el.innerHTML=`<div class="calc-overlay" id="calcOverlay"><div class="calc-dialog" role="dialog" aria-modal="true" aria-label="Kalkulator nominal"><div class="calc-head"><strong>🧮 Kalkulator nominal</strong><button type="button" class="mini-icon" data-action="calc-close" aria-label="Tutup kalkulator">${toIcon('x')}</button></div><div class="calc-display"><div class="calc-expression" aria-label="Perhitungan">${E(calculator.expression||'0')}</div><small class="${error?'calc-error':''}" aria-live="polite">${error||'Hasil (dibulatkan ke rupiah)'}</small><div class="calc-result">${valid?E(fmt(value)):error?'—':value===0?'Rp 0':'—'}</div></div><div class="calc-pad">${buttons.map(([label,v])=>`<button type="button" data-action="calc-key" data-value="${E(v)}" class="${['clear','back','÷','×','-','+'].includes(v)?'operator':''}">${E(label)}</button>`).join('')}</div><button type="button" class="action-btn calc-apply" data-action="calc-apply" ${valid?'':'disabled'}>Gunakan hasil ${valid?E(fmt(value)):''}</button></div></div>`;
+  el.innerHTML=`<div class="calc-overlay" id="calcOverlay"><div class="calc-dialog" role="dialog" aria-modal="true" aria-label="Kalkulator nominal"><div class="calc-head"><strong>🧮 Kalkulator nominal</strong><button type="button" class="mini-icon" data-action="calc-close" aria-label="Tutup kalkulator">${toIcon('x')}</button></div><div class="calc-display"><div class="calc-expression" aria-label="Perhitungan">${E(calculator.expression||'0')}</div><small class="${error?'calc-error':''}" aria-live="polite">${error||' '}</small><div class="calc-result">${valid?E(fmt(value)):error?'—':value===0?'Rp 0':'—'}</div></div><div class="calc-pad">${buttons.map(([label,v])=>`<button type="button" data-action="calc-key" data-value="${E(v)}" class="${['clear','back','÷','×','-','+'].includes(v)?'operator':''}">${E(label)}</button>`).join('')}</div><button type="button" class="action-btn calc-apply" data-action="calc-apply" ${valid?'':'disabled'}>Gunakan hasil ${valid?E(fmt(value)):''}</button></div></div>`;
   iconize();
   if(el.querySelector('.calc-head button'))el.querySelector('.calc-head button').focus({preventScroll:true});
 }
