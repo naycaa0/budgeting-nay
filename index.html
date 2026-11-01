@@ -178,7 +178,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
   </section>
   <div class="app">
     <aside class="sidebar" id="sidebar" aria-label="Navigasi utama">
-      <div class="identity"><div class="brand-mark">N</div><div><strong>Budgeting Nay</strong><span>Keuangan lebih tertata</span></div></div>
+      <div class="identity"><div class="brand-mark">N</div><div><strong>Budgeting Nay</strong><span>Rajin Budgeting Yuk!</span></div></div>
       <div class="sidebar-kicker">MENU UTAMA</div>
       <nav id="nav" class="nav"></nav>
       <div class="side-foot"><div class="side-foot-icon">✦</div><div><b>Pelan-pelan, jadi tabungan ✨</b><small>Atur uangmu dengan nyaman</small></div></div>
@@ -285,7 +285,7 @@ function summaryCompare(){
     return `<article class="summary-comparison ${style}"><div class="summary-label">${label}</div><div class="summary-current"><small>Bulan ini / terpilih</small><strong>${money(now)}</strong></div><div class="summary-previous"><span>Bulan sebelumnya</span><strong>${money(prior)}</strong></div><div class="summary-delta">Selisih: <b>${app.private&&app.page!=='transaksi'?'••••••':(delta>0?'+':'')+fmt(delta)}</b></div></article>`;
   }).join('')}</div><p class="tinyhelp summary-note">Total bersih = pemasukan − pengeluaran. Saldo awal dan transfer antar-rekening tidak dihitung.</p>`;
 }
-function accountTotal(){return `<div class="account-total"><div><span>TOTAL SALDO SELURUH REKENING</span><small>Akumulasi saldo semua rekening, termasuk saldo awal</small></div><strong>${money(allBalance())}</strong></div>`}
+function accountTotal(){return `<div class="account-total"><div><span>TOTAL SALDO</span><small>Akumulasi saldo semua rekening</small></div><strong>${money(allBalance())}</strong></div>`}
 function renderOverview(){
   let t=transactionsOfMonth();return `${notice()}${header('Halo, selamat datang! 👋','Pantau kondisi keuanganmu dalam satu tampilan.',monthSwitcher())}
   <section class="panel">${section('Ringkasan','Pemasukan, pengeluaran, dan total bulan terpilih dibanding bulan sebelumnya.',btn('Lihat rincian','go-ringkasan','light'))}${summaryCompare()}</section>
@@ -477,7 +477,7 @@ function calcRender(){
   let value=null,error='';try{if(calculator.expression)value=calcEvaluate(calculator.expression)}catch(e){error=e.message}
   const valid=value!==null&&Number.isSafeInteger(value)&&value>0;
   const buttons=[['C','clear'],['(','('],[')',')'],['⌫','back'],['7','7'],['8','8'],['9','9'],['÷','÷'],['4','4'],['5','5'],['6','6'],['×','×'],['1','1'],['2','2'],['3','3'],['−','-'],['0','0'],['00','00'],['.','.'],['+','+']];
-  el.innerHTML=`<div class="calc-overlay" id="calcOverlay"><div class="calc-dialog" role="dialog" aria-modal="true" aria-label="Kalkulator nominal"><div class="calc-head"><strong>🧮 Kalkulator nominal</strong><button type="button" class="mini-icon" data-action="calc-close" aria-label="Tutup kalkulator">${toIcon('x')}</button></div><div class="calc-display"><div class="calc-expression" aria-label="Perhitungan">${E(calculator.expression||'0')}</div><small class="${error?'calc-error':''}" aria-live="polite">${error||'Hasil (dibulatkan ke rupiah)'}</small><div class="calc-result">${valid?E(fmt(value)):error?'—':value===0?'Rp 0':'—'}</div></div><div class="calc-pad">${buttons.map(([label,v])=>`<button type="button" data-action="calc-key" data-value="${E(v)}" class="${['clear','back','÷','×','-','+'].includes(v)?'operator':''}">${E(label)}</button>`).join('')}</div><button type="button" class="action-btn calc-apply" data-action="calc-apply" ${valid?'':'disabled'}>Gunakan hasil ${valid?E(fmt(value)):''}</button></div></div>`;
+  el.innerHTML=`<div class="calc-overlay" id="calcOverlay"><div class="calc-dialog" role="dialog" aria-modal="true" aria-label="Kalkulator nominal"><div class="calc-head"><strong>🧮 Kalkulator nominal</strong><button type="button" class="mini-icon" data-action="calc-close" aria-label="Tutup kalkulator">${toIcon('x')}</button></div><div class="calc-display"><div class="calc-expression" aria-label="Perhitungan">${E(calculator.expression||'0')}</div><small class="${error?'calc-error':''}" aria-live="polite">${error||' '}</small><div class="calc-result">${valid?E(fmt(value)):error?'—':value===0?'Rp 0':'—'}</div></div><div class="calc-pad">${buttons.map(([label,v])=>`<button type="button" data-action="calc-key" data-value="${E(v)}" class="${['clear','back','÷','×','-','+'].includes(v)?'operator':''}">${E(label)}</button>`).join('')}</div><button type="button" class="action-btn calc-apply" data-action="calc-apply" ${valid?'':'disabled'}>Gunakan hasil ${valid?E(fmt(value)):''}</button></div></div>`;
   iconize();
   if(el.querySelector('.calc-head button'))el.querySelector('.calc-head button').focus({preventScroll:true});
 }
